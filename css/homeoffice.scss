@@ -9,6 +9,10 @@ $purple2: #e700ff;
 
 body { padding-top: 70px; }
 
+a, a:hover {
+  color: $purple1;
+}
+
 .navbar {
   background-color: $red;
   border: none;
