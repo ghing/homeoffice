@@ -1,0 +1,43 @@
+<script>
+(function($, moment) {
+  var calUrl = '{{ page.calendar_json_url }}';
+
+  function parseEvent(rawEvent) {
+    return {
+      title: rawEvent.title.$t,
+      startTime: moment(rawEvent.gd$when[0].startTime),
+      endTime: moment(rawEvent.gd$when[0].endTime)
+    };
+  }
+
+  function parseEvents(rawEvents) {
+    return $.map(rawEvents, parseEvent);
+  }
+
+  function thisWeeksEvents(events) {
+    var now = moment();
+    var weekStart = moment(now).subtract(now.day() - 1, 'days').hour(0).minute(0).second(0);
+    var nextWeekStart = moment(now).add(8 - now.day(), 'days').hour(0).minute(0).second(0);
+    return $.grep(events, function(evt) {
+      return evt.startTime.isAfter(weekStart) && evt.startTime.isBefore(nextWeekStart);
+    });
+  }
+
+  function renderEvents(events) {
+    var $el = $('<ul>');
+    $.each(events, function(i, evt) {
+      var dateS = evt.startTime.format("dddd, MMMM D: h:mm a") + " - " + evt.endTime.format("h:mm a");
+      var $li = $('<li>').text(dateS);
+      $el.append($li);
+    });
+    return $el;
+  }
+
+  $(function() {
+    $.getJSON(calUrl, function(data) {
+      var events = thisWeeksEvents(parseEvents(data.feed.entry));
+      $('#hours-container').append(renderEvents(events));
+    });
+  });
+})(jQuery, moment);
+</script>

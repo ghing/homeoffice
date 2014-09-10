@@ -1,0 +1,37 @@
+---
+layout: default
+title: Home Office
+scripts:
+  - //cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js
+script_include: index_scripts.html
+calendar_json_url: https://www.google.com/calendar/feeds/228tvfq6c7m4tjvqbqsb3vbejs%40group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&futureevents=true&alt=json
+resources:
+    - Wireless Internet
+    - Desk x 2
+    - Table that seats 2 people and their projects
+    - Coffee
+    - Snacks
+    - An awesome cat to sit on your keyboard
+    - Printer/scanner
+    - DIY ping pong table (somewhat smaller than regulation but still fun)
+---
+
+<img class="icon-main-logo" src="img/home_icon-red.png">
+
+<h1 class="title">{{ page.title }}</h1>
+
+<p class="lead text-center">1314 N. Claremont Ave. Apt 1F, Chicago</p>
+
+<p class="lead text-justify">Home Office is chosen coworkers. It is free. It is support in times of frustration. It is low-resource.  It is distraction when you need it.  Home Office is an experiment in cooperative work.</p>
+
+<h2 id="resources" class="text-center">Resources</h2>
+
+<ul>
+    {% for resource in page.resources %}
+    <li>{{ resource }}</li>
+    {% endfor %}
+</ul>
+
+<h2 id="hours" class="text-center">Hours</h2>
+
+<div id="hours-container"></div>
